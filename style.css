@@ -1,6 +1,26 @@
+.controls {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 10px auto;
+}
+
+.select-player {
+    text-align: center;
+    flex: 1 auto;
+}
+
+.buttons {
+    flex: 1 100%;
+    text-align: center;
+}
+
+.buttons input[type="button"] {
+    margin-top: 10px;
+}
+
 .board {
     width: 400px;
-    margin: auto
+    margin: auto;
 }
 
 .info {
