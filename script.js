@@ -6,7 +6,7 @@ var HIGHLIGHTED_BLACK_TILE_COLOUR = '#696969';
 var board,
     gameWithHuman,
     gameWithAi,
-    game = new Chess();
+    game;
 
 /* board visualization and games state handling */
 
@@ -50,8 +50,13 @@ var aiMove = function () {
     game.ugly_move(bestMove);
     board.position(game.fen());
     // renderMoveHistory(game.history());
+
     if (game.game_over()) {
         alert('Game over');
+    }
+
+    else if (!gameWithHuman) {
+        window.setTimeout(aiMove, 250);
     }
 };
 
@@ -150,13 +155,21 @@ var getGameConfig = function() {
 };
 
 var startGame = function() {
+    game = new Chess();
 
     var config = getGameConfig();
     board = ChessBoard('board', config);
     board.start();
 
-    $('#clear-button').off();
-    $('#clear-button').on('click', board.clear);
+    if (!gameWithHuman) {
+        window.setTimeout(aiMove, 250);
+    }
 };
 
+var endGame = function() {
+    if (board) board.clear();
+    if (game) game.clear();
+}
+
 $('#start-button').on('click', startGame);
+$('#clear-button').on('click', endGame);
